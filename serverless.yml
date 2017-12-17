@@ -1,0 +1,42 @@
+service: serverless-webhooks
+
+provider:
+  name: aws
+  runtime: python3.6
+  # Global environment vars
+  environment:
+    pushbullet_api_key: '${ssm:/hooks/pushbullet_api_key~true}'
+
+plugins:
+  - serverless-python-requirements
+
+package:
+  exclude:
+    # Exclude python env
+    - env/**
+
+functions:
+  discourse:
+    handler: webhooks/discourse.handler
+    events:
+      - http:
+          path: v1/discourse
+          method: post
+    environment:
+      discourse_secret: '${ssm:/hooks/discourse_secret~true}'
+  github:
+    handler: webhooks/github.handler
+    events:
+      - http:
+          path: v1/github
+          method: post
+    environment:
+      github_secret: '${ssm:/hooks/github_secret~true}'
+  mailerlite:
+    handler: webhooks/mailerlite.handler
+    events:
+      - http:
+          path: v1/mailerlite
+          method: post
+    environment:
+      mailerlite_secret: '${ssm:/hooks/mailerlite_secret~true}'

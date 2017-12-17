@@ -1,0 +1,110 @@
+---
+github:
+    events:
+        ping:
+            pushbullet:
+                title: "[GitHub] {repository[full_name]}: ping"
+                body:  "Ping event for repo {repository[full_name]}"
+                link:  "{repository[html_url]}"
+                always: true
+        commit_comment:
+            pushbullet:
+                title: "[GitHub] {repository[full_name]}: {sender[login]} commented on {comment[commit_id]!s:.8}"
+                body:  "{body}"
+                link:  "{comment[html_url]}"
+        create:
+            pushbullet:
+                title: "[GitHub] {repository[full_name]}: new {ref_type} created by {sender[login]}"
+                body:  "{ref_type}: {ref}"
+                link:  "{repository[html_url]}"
+        delete:
+            pushbullet:
+                title: "[GitHub] {repository[full_name]}: {ref_type} deleted by {sender[login]}"
+                body:  "{ref_type}: {ref}"
+                link:  "{repository[html_url]}"
+        fork:
+            pushbullet:
+                title: "[GitHub] {repository[full_name]}: {sender[login]} just forked your repo!"
+                body:  "Forked repo at {forkee[full_name]}"
+                link:  "{forkee[html_url]}"
+        issues:
+            pushbullet:
+                title: "[GitHub] {repository[full_name]}: {sender[login]} {action} issue #{issue[number]!s}"
+                body:  "{issue[body]}"
+                link:  "{issue[html_url]}"
+        issue_comment:
+            pushbullet:
+                title: "[GitHub] {repository[full_name]}: {sender[login]} {action} a comment on issue #{issue[number]!s}"
+                body:  "{comment[body]}"
+                link:  "{comment[html_url]}"
+        member:
+            pushbullet:
+                title: "[GitHub] {repository[full_name]}: {member[login]} has been {action} "
+                body:  "Member was {action} by {sender[login]}"
+                link:  "{repository[html_url]}/settings/collaboration"
+                always: true
+        page_build:
+            pushbullet:
+                title: "[GitHub] {repository[full_name]}: {sender[login]} {build[status]} a new pages version"
+                body:  "{build[error][message]}"
+                link:  "{build[url]}"
+                always: true
+        pull_request:
+            pushbullet:
+                title: "[GitHub] {repository[full_name]}: {sender[login]} {action} PR #{number!s}"
+                body:  "{pull_request[body]}"
+                link:  "{pull_request[html_url]}"
+        pull_request_review:
+            pushbullet:
+                title: "[GitHub] {repository[full_name]}: {sender[login]} {action} a review on PR #{pull_request[number]!s}"
+                body:  "{review[body]}"
+                link:  "{review[html_url]}"
+        pull_request_review_comment:
+            pushbullet:
+                title: "[GitHub] {repository[full_name]}: {sender[login]} {action} a comment on PR #{pull_request[number]!s}"
+                body:  "{comment[body]}"
+                link:  "{comment[html_url]}"
+        push:
+            pushbullet:
+                title: "[GitHub] {repository[full_name]}: new commit"
+                body:  "New commit ({head_commit[id]!s:.8}) by {pusher[name]}"
+                link:  "{compare}"
+        watch:
+            pushbullet:
+                title: "[GitHub] {repository[full_name]}: {sender[login]} just stared your repository!"
+                body:  "You now have {repository[stargazers_count]!s} stars"
+                link:  "{sender[html_url]}"
+    # List of users to ignore
+    ignore:
+            - 'dummy-user'
+
+discourse:
+    events:
+        ping:
+            pushbullet:
+                title: "[Discourse] ping"
+                body:  "pong!"
+                link:  "https://meta.discourse.org"
+        post_created:
+            pushbullet:
+                title: "[Discourse] New post by {post[username]}"
+                body:  "Post topic: {post[topic_slug]}"
+                link:  "https://meta.discourse.org/t/{post[topic_slug]}/{post[topic_id]}/{post[post_number]}/"
+        topic_created:
+            pushbullet:
+                title: "[Discourse] New topic created: {topic[title]}"
+                body:  "Topic created by {topic[details][created_by][username]}"
+                link:  "https://meta.discourse.org/t/{topic[slug]}/{topic[id]}/"
+        user_created:
+            pushbullet:
+                title: "[Discourse] New user created: {user[username]}"
+                body:  "Name: {user[name]}\n"
+                link:  "https://meta.discourse.org/u/{user[username]}"
+
+updown_events:
+    check.down:
+        title: "[updown] {check[alias]} ({check[url]}) is failing"
+        body:  "Since: {downtime[started_at]}\nError: {check[error]}\nLast check: {check[last_check_at]}\nNext check: {check[next_check_at]}"
+    check.up:
+        title: "[updown] {check[alias]} ({check[url]}) is passing"
+        body:  "Since: {downtime[ended_at]}\nDuration: {downtime[duration]}\nLast status: {check[last_status]}"
