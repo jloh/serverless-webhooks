@@ -79,7 +79,7 @@ def handler(event, context):
             }
             return response
     else:
-        resposne = {
+        response = {
             "statusCode": 200,
             "body": json.dumps({"status": "OK", "notification": "skipped", "reason": "no entry configured for event"})
         }
