@@ -4,7 +4,7 @@ idna==2.5
 pushbullet.py==0.11.0
 python-magic==0.4.13
 PyYAML==3.12
-requests==2.18.1
+requests==2.20.0
 six==1.10.0
 urllib3==1.24.2
 websocket-client==0.44.0
